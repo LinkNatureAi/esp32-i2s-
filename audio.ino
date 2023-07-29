@@ -11,7 +11,7 @@ const char* password = "1234567890";
 
 Audio audio;
 unsigned long previousMillis = 0;
-const long interval = 5000; // 5 seconds interval
+const long interval = 8000; // 8 seconds interval
 
 void setup(){
   Serial.begin(115200);
@@ -33,7 +33,7 @@ void loop(){
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
-    audio.setVolume(10);
+    audio.setVolume(20);
     audio.connecttospeech("hello where are you from!", "en");
   }
 }
