@@ -10,6 +10,8 @@ const char* ssid = "POCO X3 Pro";
 const char* password = "1234567890";
 
 Audio audio;
+unsigned long previousMillis = 0;
+const long interval = 5000; // 5 seconds interval
 
 void setup(){
   Serial.begin(115200);
@@ -19,18 +21,24 @@ void setup(){
     delay(1000); 
     Serial.print("."); 
   }
-  delay(2000);
-  Serial.println("conected!");
+  Serial.println("connected!");
   audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
-  audio.setVolume(100);
-  audio.connecttospeech("hello where are you from!", "en");
+  audio.setVolume(40);
+  audio.connecttospeech("hello and WELLCOME!", "en");
 }
 
-void loop(){ 
-
+void loop(){
   audio.loop();
 
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+    audio.setVolume(10);
+    audio.connecttospeech("hello where are you from!", "en");
+  }
 }
 
 void audio_info(const char *info) {
-  Serial.print("audio_info: "); Serial.println(info); }
+  Serial.print("audio_info: ");
+  Serial.println(info);
+}
